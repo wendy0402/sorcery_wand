@@ -11,9 +11,8 @@ require 'rspec'
 require 'sorcery'
 require 'rails/all'
 require 'rspec/rails'
-require 'timecop'
 
-require "rails_app/config/environment"
+require "dummy/config/environment"
 
 class TestMailer < ActionMailer::Base;end
 
