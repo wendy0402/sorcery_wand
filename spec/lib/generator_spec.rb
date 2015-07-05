@@ -7,23 +7,34 @@ describe SorceryWand::Generators::InstallGenerator, type: :generator do
   before do
     prepare_destination
   end
+
+  after(:each) do
+    f = file './'
+    FileUtils.rm_rf(f)
+  end
   
-  describe 'initializer' do
+  describe 'initialize only' do
     before do
       run_generator(['--model_name', 'User'])
     end
 
     subject { file 'config/initializers/sorcery_wand.rb' }
     it{ is_expected.to exist }
+
+    it 'not include submodules' do
+      is_expected.to_not contain '["password_archivable"]'
+    end
   end
 
-  describe 'migration' do
+  describe 'submodules' do
     before do
      run_generator(['password_archivable', '--model_name', 'User'])
     end
-    subject { Dir[file('db/migrate/**/*.rb')][0] }
 
-    it { is_expected.to exist }
-    it { is_expected.to match /.*sorcery_wand_password_archivable\.rb/ }
+    it { expect(file('db/migrate/sorcery_wand_password_archivable.rb')).to be_a_migration }
+
+    it 'config include submodules' do
+      expect(file('config/initializers/sorcery_wand.rb')).to contain '["password_archivable"]'
+    end
   end
 end
