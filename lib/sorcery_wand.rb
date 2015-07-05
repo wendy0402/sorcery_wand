@@ -1,10 +1,10 @@
+require 'sorcery'
+require File.expand_path('../sorcery_wand/config.rb',__FILE__)
 module SorceryWand
-  class << self
-    attr_accessor :config
-  end
-  
+  mattr_accessor :config
+
   def self.configure
-    self.configuration ||= Configuration.new
-    yield(configuration)
+    self.config ||= Config.new
+    yield(self.config)
   end
 end

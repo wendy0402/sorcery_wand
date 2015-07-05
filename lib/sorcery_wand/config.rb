@@ -1,6 +1,6 @@
 module SorceryWand
   class Config
-    attr_accessor :feature
+    attr_accessor :submodules
     #password_archivable config
     attr_accessor :password_archivable_count
 

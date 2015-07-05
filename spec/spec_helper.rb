@@ -14,6 +14,8 @@ require 'rspec/rails'
 
 require "dummy/config/environment"
 
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each{ |f| require f }
+
 class TestMailer < ActionMailer::Base;end
 
 
@@ -24,4 +26,5 @@ RSpec.configure do |config|
   config.before(:each) { ActionMailer::Base.deliveries.clear }
   config.include ::Sorcery::TestHelpers::Internal
   config.include ::Sorcery::TestHelpers::Internal::Rails
+  config.include ::MigrationHelper
 end
