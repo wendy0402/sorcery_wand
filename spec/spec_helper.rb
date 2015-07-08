@@ -8,8 +8,8 @@ ENV["RAILS_ENV"] ||= 'test'
 # SimpleCov.start
 
 require 'rspec'
-require 'sorcery'
 require 'rails/all'
+require 'sorcery'
 require 'rspec/rails'
 
 require "dummy/config/environment"
@@ -22,9 +22,9 @@ class TestMailer < ActionMailer::Base;end
 RSpec.configure do |config|
   config.mock_with :rspec
 
-  config.use_transactional_fixtures = false 
+  config.use_transactional_fixtures = false
   config.before(:each) { ActionMailer::Base.deliveries.clear }
+  config.include ::MigrationHelper
   config.include ::Sorcery::TestHelpers::Internal
   config.include ::Sorcery::TestHelpers::Internal::Rails
-  config.include ::MigrationHelper
 end
