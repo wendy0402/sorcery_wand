@@ -12,7 +12,7 @@ describe SorceryWand::Generators::InstallGenerator, type: :generator do
     f = file './'
     FileUtils.rm_rf(f)
   end
-  
+
   describe 'initialize only' do
     before do
       run_generator(['--model_name', 'User'])
@@ -23,6 +23,10 @@ describe SorceryWand::Generators::InstallGenerator, type: :generator do
 
     it 'not include submodules' do
       is_expected.to_not contain '["password_archivable"]'
+    end
+
+    it 'include user class' do
+      is_expected.to contain "config.user_class = 'User'\nend"
     end
   end
 

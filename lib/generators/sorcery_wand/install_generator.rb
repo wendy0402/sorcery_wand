@@ -30,6 +30,12 @@ module SorceryWand
         end
       end
 
+      def update_user_class
+        gsub_file "config/initializers/sorcery_wand.rb", /config.user_class = .*\n/ do |str|
+          "config.user_class = '#{options[:model_name]}'\n"
+        end
+      end
+
       def self.next_migration_number(dirname)
         if ActiveRecord::Base.timestamped_migrations
           sleep 1 # make sure each time we get a different timestamp
