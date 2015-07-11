@@ -22,8 +22,6 @@ module SorceryWand
           base.send(:include, InstanceMethods)
 
           base.class_eval do
-            # sorcery_adapter.define_callback :before, :update, :same_with_old_pass?,
-            #   if: Proc.new { |user| user.send(sorcery_config.password_attribute_name).present? }
             validate :same_with_archived_password?, on: :update
             sorcery_adapter.define_callback :before, :update, :update_archive,
               if: Proc.new { |user| user.send(sorcery_config.password_attribute_name).present? }
