@@ -39,21 +39,29 @@ module SorceryWand
             end
           end
 
+          # add old password to archive. if total archived reached limit, then
+          # delete the oldest
           def update_archive
             if crypted_password_was.blank? || salt_was.blank?
               return
             end
-            total_archivable = SorceryWand.config.password_archivable_count
-            current_archivable = password_archives.order('created_at desc').
-              limit(total_archivable - 1).to_a
-            new_archived = PasswordArchive.new(
-              crypted_password: crypted_password_was,
-              salt: salt_was,
-              user: self,
-              created_at: Time.zone.now
-              )
-            archived = current_archivable + [new_archived]
-            self.password_archives = archived
+            total_archivable = SorceryWand.config.password_archivable_count.to_i
+
+            if total_archivable > 0
+              new_archived = PasswordArchive.create(
+                crypted_password: crypted_password_was,
+                salt: salt_was,
+                user: self,
+                created_at: Time.zone.now
+                )
+
+              self.password_archives.order('created_at desc').
+                offset(total_archivable).
+                destroy_all
+            else
+              ## if total_archivable is 0, no need to create unnecessary record
+              self.password_archives.destroy_all
+            end
           end
         end
         module ClassMethods;end

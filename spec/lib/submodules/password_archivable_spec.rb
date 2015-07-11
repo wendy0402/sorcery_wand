@@ -87,4 +87,23 @@ describe 'password_archivable' do
       expect(user.errors[:password]).to be_present
     end
   end
+
+  context 'limit is 0' do
+    before do
+      SorceryWand.config.password_archivable_count = 0
+      user.update_attributes(password: 'password02')
+      user.update_attributes(password: "password03")
+    end
+
+    it { expect(user.password_archives.all.size).to eq(0) }
+
+    it 'update is success' do
+      expect(user.valid_password?('password03')).to be_truthy
+    end
+
+    it 'can update using old password again' do
+      user.update_attributes(password: 'password02')
+      expect(user.valid_password?('password02')).to be_truthy
+    end
+  end
 end
