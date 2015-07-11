@@ -13,6 +13,7 @@ require 'sorcery'
 require 'rspec/rails'
 
 require "dummy/config/environment"
+require File.expand_path('../../lib/sorcery_wand.rb', __FILE__)
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each{ |f| require f }
 
