@@ -1,6 +1,6 @@
 class SorceryController < ActionController::Base
   protect_from_forgery
-  before_filter :require_login, only: [:test_logout, :test_should_be_logged_in, :some_action]
+  before_filter :require_login, only: [:test_logout, :some_action]
 
   def index
   end
