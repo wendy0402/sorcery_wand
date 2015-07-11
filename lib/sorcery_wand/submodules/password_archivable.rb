@@ -31,7 +31,6 @@ module SorceryWand
         end
         module InstanceMethods
           # compare new password with other archived password
-          attr_reader :old_crypted_password, :old_salt
           def same_with_archived_password?
             count = SorceryWand.config.password_archivable_count
             old_passwords = password_archives.order('created_at desc').limit(count)
