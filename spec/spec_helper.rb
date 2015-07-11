@@ -24,7 +24,13 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = false
   config.before(:each) { ActionMailer::Base.deliveries.clear }
+
+  config.before(:each) do
+    SorceryWand.config = SorceryWand::Config.new
+  end
+
   config.include ::MigrationHelper
   config.include ::Sorcery::TestHelpers::Internal
   config.include ::Sorcery::TestHelpers::Internal::Rails
+  config.include ::StdioHelpers
 end
