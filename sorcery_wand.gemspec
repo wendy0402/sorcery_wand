@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["wendy0402"]
   s.email       = ["wendykurniawan92@gmail.com"]
   s.homepage    = "https://github.com/wendy0402/sorcery_wand"
-  s.summary     = "SorceryWand is a plugin for Sorcery gem for many different features"
-  s.description = "SorceryWand is a plugin for Sorcery gem for many different features such as password archivable"
+  s.summary     = "SorceryWand is a features plugin for Sorcery gem"
+  s.description = "SorceryWand is a features plugin for Sorcery gem such as password archivable"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
