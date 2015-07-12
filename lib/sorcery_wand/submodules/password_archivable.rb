@@ -1,14 +1,15 @@
 module SorceryWand
   module Submodules
     # This Submodules is built to add ability archive old password and every
-    # new password will be checked with the last x(from sorcery wand config)
-    # archived. If there is one that match, it is not allowed
+    # new password will be checked with the archived password.
+    # If there is one that match, it is not allowed
     module PasswordArchivable
-
-      # inject module password archivable  for user to User class
       def self.inject!
+        # inject module password archivable  for user to User class
         user_models_part = SorceryWand::Submodules::PasswordArchivable::Model
         SorceryWand.user_class.send(:include, user_models_part)
+
+        #include password_archive module to PasswordArchive class
         begin
           PasswordArchive.send(:include, SorceryWand::Submodules::PasswordArchivable::PasswordArchives)
         rescue NameError
