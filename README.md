@@ -35,4 +35,4 @@ Inside the initializer, there is brief explanation for each setting.
 * add features `security_question`
 
 # Copyright
-Copyright (c) 2015-2019 Wendy Kurniawan Soesanto((wendy0402)[https://github.com/wendy0402]). See LICENSE.txt for further details.
+Copyright (c) 2015-2019 Wendy Kurniawan Soesanto([wendy0402](https://github.com/wendy0402])). See LICENSE.txt for further details.
