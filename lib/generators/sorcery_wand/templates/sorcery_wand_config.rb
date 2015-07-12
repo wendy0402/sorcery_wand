@@ -1,4 +1,8 @@
 SorceryWand.configure do |config|
+  ##submodules
+  # list submodules that is wanted to be used
+  # ex: config.submodules = ['password_archivable']
+  # options: 'password_archivable'
   config.submodules = []
   ## password_archivable ##
 
