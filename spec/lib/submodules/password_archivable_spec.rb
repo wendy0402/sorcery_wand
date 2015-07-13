@@ -5,15 +5,18 @@ describe 'password_archivable' do
     end
     User.reset_column_information
     sorcery_reload!
-    SorceryWand.config.submodules = ['password_archivable']
-    SorceryWand.config.user_class = 'User'
-    SorceryWand::Submodules.inject_submodules!
   end
 
   after :all do
     redirect_stdout do
       ActiveRecord::Migrator.rollback migration_path('password_archivable')
     end
+  end
+
+  before :each do
+    SorceryWand.config.submodules = ['password_archivable']
+    SorceryWand.config.user_class = 'User'
+    User.inject_sorcery_wand!
   end
 
   after :each do
