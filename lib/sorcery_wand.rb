@@ -1,10 +1,10 @@
 require 'sorcery'
+
+
+require File.expand_path('../sorcery_wand/engine.rb', __FILE__)
 require File.expand_path('../sorcery_wand/config.rb', __FILE__)
 require File.expand_path('../sorcery_wand/submodules.rb', __FILE__)
-require File.expand_path('../sorcery_wand/engine.rb', __FILE__)
-require File.expand_path('../sorcery_wand/submodules/password_archivable.rb', __FILE__)
-require File.expand_path('../sorcery_wand/submodules/password_archivable/password_archives.rb', __FILE__)
-
+require File.expand_path('../sorcery_wand/orm/base',__FILE__)
 module SorceryWand
   mattr_accessor :config
 
@@ -16,4 +16,10 @@ module SorceryWand
   def self.user_class
     self.config.user_class.constantize
   end
+
+  module Submodules
+    require File.expand_path('../sorcery_wand/submodules/password_archivable.rb', __FILE__)
+    require File.expand_path('../sorcery_wand/submodules/password_archivable/password_archives.rb', __FILE__)
+  end
 end
+ActiveRecord::Base.extend SorceryWand::Orm::Base
