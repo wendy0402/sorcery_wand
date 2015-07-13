@@ -14,7 +14,7 @@ And run
 bundle install
 ```
 
-# Rails configuration
+# Rails Configuration
 overall rails generator configuration:
 ```console
 rails generate sorcery_wand:install [submodules] [options]
@@ -28,7 +28,15 @@ below will generate `initializer` file, `password_archivable` related model clas
 ```
 rails generate sorcery_wand:install password_archivable --model-name User
 ```
-Inside the initializer, there is brief explanation for each setting.
+Inside the initializer, there is brief explanation for each setting. Initializer is located in `config/initializer/sorcery_wand.rb`
+
+Put `inject_sorcery_wand!` below `authenticates_with_sorcery!` in the model which name is declared in config `user_class`. `user_class` must be declared in initializer
+```ruby
+class User < ActiveRecord::Base
+  authenticates_with_sorcery!
+  inject_sorcery_wand!
+end
+```
 
 # TODO:
 * add support for `DataMapper`, `Mongoid` and `MongoMapper`
