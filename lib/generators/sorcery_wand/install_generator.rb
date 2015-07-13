@@ -53,6 +53,23 @@ module SorceryWand
           end
         end
       end
+
+      def configure_password_archivable
+        if submodules && submodules.include?("password_archivable")
+          generate "model PasswordArchive --skip-migration --no-fixture --no-test-framework"
+          indents = "  " * (namespaced? ? 2 : 1)
+          inject_into_class "app/models/password_archive.rb", PasswordArchive,
+            "#{indents}belongs_to :#{options[:model_name].tableize.singularize}\n"
+        end
+      end
+      private
+      def namespace
+        Rails::Generators.namespace if Rails::Generators.respond_to?(:namespace)
+      end
+
+      def namespaced?
+        !!namespace
+      end
     end
   end
 end
